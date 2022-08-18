@@ -1,0 +1,433 @@
+version: "2.2"
+
+services:
+  nginxProxy:
+    container_name: nginxProxy
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - /home/DATA/proxy/certs:/etc/nginx/certs
+      - /home/DATA/proxy/dhparam:/etc/nginx/dhparam
+      - /home/DATA/proxy/vhost.d:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock
+      - /home/DATA/proxy/html:/usr/share/nginx/html
+    restart: always
+
+  nginxLetsencrypt:
+    container_name: nginxLetsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion:latest
+    volumes_from:
+      - nginxProxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # portainer:
+  #   container_name: portainer
+  #   image: portainer/portainer:latest
+  #   restart: always
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - /home/DATA/portainer/data:/data
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+  vm:
+    shm_size: "2gb"
+    container_name: vm
+    # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # restart: always
+    restart: unless-stopped
+    ports:
+      - "6080:80"
+      - "8080:8080"
+      - "5900:5900"
+    environment:
+      TZ: America/New_York
+      VNCUSER: integem
+      VNCGROUP: integem
+      # USER: integem
+      # PASSWORD: cc880108
+      VNC_PASSWD: cc880108
+      PASSWORD: cc880108
+      PASSWD: cc880108
+      VNCPASS: cc880108
+      GEOMETRY: 1920x1080
+      SIZE: 1920x1080
+      DEPTH: 32
+      VNDEPTH: 32
+      VNCRES: 1920x1080
+      VNCPORT: 1
+      ALSADEV: hw:2,0
+    volumes:
+      - /dev/shm:/dev/shm
+      - /home/DATA/Downloads:/root/Downloads
+    devices:
+      - /dev/snd
+
+  rancher:
+    image: rancher/rancher:v2.4.18
+    privileged: true
+    restart: always
+    ports:
+      - "8888:80"
+      - "8443:443"
+    container_name: rancher
+    volumes:
+      - ./data:/var/lib/rancher
+      - /etc/resolved.conf:/etc/resolved.conf
+    # network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+  # vm1:
+  #   shm_size: "2gb"
+  #   container_name: vm1
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6081:80"
+  #     - "5911:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+  # vm2:
+  #   shm_size: "2gb"
+  #   container_name: vm2
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6082:80"
+  #     - "5902:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm3:
+  #   shm_size: "2gb"
+  #   container_name: vm3
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6083:80"
+  #     - "5903:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm4:
+  #   shm_size: "2gb"
+  #   container_name: vm4
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6084:80"
+  #     - "5904:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm5:
+  #   shm_size: "2gb"
+  #   container_name: vm5
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6085:80"
+  #     - "5905:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm6:
+  #   shm_size: "2gb"
+  #   container_name: vm6
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6086:80"
+  #     - "5906:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm7:
+  #   shm_size: "2gb"
+  #   container_name: vm7
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6087:80"
+  #     - "5907:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm8:
+  #   shm_size: "2gb"
+  #   container_name: vm8
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6088:80"
+  #     - "5908:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm9:
+  #   shm_size: "2gb"
+  #   container_name: vm9
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6089:80"
+  #     - "5909:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd
+
+  # vm10:
+  #   shm_size: "2gb"
+  #   container_name: vm10
+  #   # image: dorowu/ubuntu-desktop-lxde-vnc:bionic
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # restart: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6090:80"
+  #     - "5910:5900"
+  #   environment:
+  #     TZ: America/New_York
+  #     VNCUSER: integem
+  #     VNCGROUP: integem
+  #     # USER: integem
+  #     # PASSWORD: cc880108
+  #     VNC_PASSWD: cc880108
+  #     PASSWORD: cc880108
+  #     PASSWD: cc880108
+  #     VNCPASS: cc880108
+  #     GEOMETRY: 1920x1080
+  #     SIZE: 1920x1080
+  #     DEPTH: 32
+  #     VNDEPTH: 32
+  #     VNCRES: 1920x1080
+  #     VNCPORT: 1
+  #     ALSADEV: hw:2,0
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - /home/DATA/Downloads:/root/Downloads
+  #   devices:
+  #     - /dev/snd

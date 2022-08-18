@@ -61,7 +61,7 @@ RUN apt-get install git curl wget -y
 #     && apt update && apt install yarn -y
 
 # vscode
-RUN cd /root/Desktop && wget https://az764295.vo.msecnd.net/stable/e4503b30fc78200f846c62cf8091b76ff5547662/code_1.70.2-1660629410_amd64.deb && mv code*.deb code.deb
+RUN mkdir -p /root/Desktop && cd /root/Desktop && wget https://az764295.vo.msecnd.net/stable/e4503b30fc78200f846c62cf8091b76ff5547662/code_1.70.2-1660629410_amd64.deb && mv code*.deb code.deb
 # COPY code_1.69.0-1657183742_amd64.deb /root/Desktop/code_1.69.0-1657183742_amd64.deb
 RUN (dpkg -i /root/Desktop/code.deb || apt-get install -fy)
 

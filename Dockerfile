@@ -61,8 +61,9 @@ RUN apt-get install git curl wget -y
 #     && apt update && apt install yarn -y
 
 # vscode
-COPY code_1.69.0-1657183742_amd64.deb /root/Desktop/code_1.69.0-1657183742_amd64.deb
-RUN (dpkg -i /root/Desktop/code_1.69.0-1657183742_amd64.deb || apt-get install -fy)
+RUN cd /root/Desktop && wget https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 && mv code*.deb code.deb
+# COPY code_1.69.0-1657183742_amd64.deb /root/Desktop/code_1.69.0-1657183742_amd64.deb
+RUN (dpkg -i /root/Desktop/code.deb || apt-get install -fy)
 
 # libfuse.so.2
 # RUN wget https://github.com/libfuse/libfuse/archive/refs/tags/fuse-3.11.0.tar.gz

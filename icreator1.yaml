@@ -195,3 +195,4 @@ spec:
                 name: kuboard-v3
                 port:
                   number: 80
+                  

@@ -83,7 +83,7 @@ FROM node:14 as builder
 WORKDIR /src
 
 RUN git clone http://jackwang:jackwang@99.109.54.153:8821/jackwang/Integem_Creator.git .
-RUN git checkout -- . && git pull
+# RUN git checkout -- . && git pull
 RUN npm i
 RUN npm run build
 RUN ls -alF

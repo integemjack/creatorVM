@@ -173,13 +173,13 @@ RUN mkdir -p $HOME && chown -R 1000:0 $HOME
 ########################################################################
 # icreator
 ########################################################################
-COPY --from=builder /src/build/iCreator*.AppImage /root/iCreator.AppImage
+COPY --from=builder /src/build/iCreator*.AppImage $HOME/iCreator.AppImage
 # COPY iCreator-1.3.601.AppImage /root/
-RUN chmod +x /root/iCreator.AppImage
-RUN cd /root && ./iCreator.AppImage --appimage-extract
+RUN chmod +x $HOME/iCreator.AppImage
+RUN cd $HOME && ./iCreator.AppImage --appimage-extract
 # RUN mkdir -p /home/integem/Desktop
-RUN mv /root/squashfs-root /root/iCreator
-COPY integem-creator.desktop /root/Desktop/integem-creator.desktop
+RUN mv $HOME/squashfs-root $HOME/iCreator
+COPY integem-creator.desktop $HOME/Desktop/integem-creator.desktop
 ########################################################################
 # icreator end
 ########################################################################

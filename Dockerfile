@@ -116,6 +116,7 @@ RUN rm -rf /home/kasm-user/Desktop/code*
 # RUN mkdir -p /home/kasm-user/Downloads
 
 COPY vnc_startup.sh /dockerstartup/vnc_startup.sh
+RUN chmod +x /dockerstartup/vnc_startup.sh
 
 # RUN /root/iCreator/integem-creator --no-sandbox &
 

@@ -130,4 +130,4 @@ RUN chmod +x /dockerstartup/vnc_startup.sh
 # ENTRYPOINT ["/startup.sh"]
 # ENTRYPOINT ["/root/iCreator/integem-creator","--no-sandbox"]
 
-USER 1000
+# USER 1000

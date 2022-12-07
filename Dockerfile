@@ -126,4 +126,4 @@ RUN rm -rf /home/kasm-user/Desktop/code*
 # ENTRYPOINT ["/startup.sh"]
 # ENTRYPOINT ["/root/iCreator/integem-creator","--no-sandbox"]
 
-USER 1000
+# USER 1000

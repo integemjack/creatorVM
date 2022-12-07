@@ -6,15 +6,15 @@
 
 FROM kasmweb/desktop:1.12.0 as system
 
-RUN lsb_release -a
+# RUN lsb_release -a
 
-ENV DEBIAN_FRONTEND=noninteractive
+# ENV DEBIAN_FRONTEND=noninteractive
 
-RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+# RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add
 
-RUN sudo apt-get update
-RUN sudo apt-get upgrade -y
-RUN sudo apt-get install git curl wget -y
+# RUN sudo apt-get update
+# RUN sudo apt-get upgrade -y
+# RUN sudo apt-get install git curl wget -y
 # RUN apt-get install libasound2 -y
 
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -

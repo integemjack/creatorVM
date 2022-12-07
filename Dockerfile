@@ -119,14 +119,7 @@ RUN rm -rf /home/kasm-user/Desktop/code*
 COPY vnc_startup.sh /dockerstartup/vnc_startup.sh
 RUN chmod +x /dockerstartup/vnc_startup.sh
 
-RUN cat > /etc/kasmvnc/kasmvnc.yaml << EOF
-network:
-  protocol: http
-  interface: 0.0.0.0
-  ssl:
-    require_ssl: false
-require
-EOF
+COPY kasmvnc.yaml /etc/kasmvnc/kasmvnc.yaml
 
 # RUN /root/iCreator/integem-creator --no-sandbox &
 

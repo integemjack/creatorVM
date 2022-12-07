@@ -108,6 +108,7 @@ RUN cd /home/kasm-user && ./iCreator.AppImage --appimage-extract
 # RUN mkdir -p /home/integem/Desktop
 RUN mv /home/kasm-user/squashfs-root /home/kasm-user/iCreator
 COPY integem-creator.desktop /home/kasm-user/Desktop/integem-creator.desktop
+RUN chmod +x /home/kasm-user/Desktop/integem-creator.desktop
 
 # RUN echo "alias code='/usr/share/code/code . --no-sandbox --unity-launch'" >> /root/.bashrc
 
@@ -129,4 +130,4 @@ RUN chmod +x /dockerstartup/vnc_startup.sh
 # ENTRYPOINT ["/startup.sh"]
 # ENTRYPOINT ["/root/iCreator/integem-creator","--no-sandbox"]
 
-# USER 1000
+USER 1000

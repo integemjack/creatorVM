@@ -43,9 +43,8 @@ services:
     # restart: always
     restart: unless-stopped
     ports:
-      - "6080:80"
-      - "8080:8080"
-      - "5900:5900"
+      - "6901:6901"
+      - "5901:5901"
     environment:
       TZ: America/New_York
       VNCUSER: integem

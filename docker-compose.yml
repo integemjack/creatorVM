@@ -1,27 +1,27 @@
 version: "2.2"
 
 services:
-  nginxProxy:
-    container_name: nginxProxy
-    image: jwilder/nginx-proxy:latest
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - /home/DATA/proxy/certs:/etc/nginx/certs
-      - /home/DATA/proxy/dhparam:/etc/nginx/dhparam
-      - /home/DATA/proxy/vhost.d:/etc/nginx/vhost.d
-      - /var/run/docker.sock:/tmp/docker.sock
-      - /home/DATA/proxy/html:/usr/share/nginx/html
-    restart: always
+  # nginxProxy:
+  #   container_name: nginxProxy
+  #   image: jwilder/nginx-proxy:latest
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  #   volumes:
+  #     - /home/DATA/proxy/certs:/etc/nginx/certs
+  #     - /home/DATA/proxy/dhparam:/etc/nginx/dhparam
+  #     - /home/DATA/proxy/vhost.d:/etc/nginx/vhost.d
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #     - /home/DATA/proxy/html:/usr/share/nginx/html
+  #   restart: always
 
-  nginxLetsencrypt:
-    container_name: nginxLetsencrypt
-    image: jrcs/letsencrypt-nginx-proxy-companion:latest
-    volumes_from:
-      - nginxProxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+  # nginxLetsencrypt:
+  #   container_name: nginxLetsencrypt
+  #   image: jrcs/letsencrypt-nginx-proxy-companion:latest
+  #   volumes_from:
+  #     - nginxProxy
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
 
   # portainer:
   #   container_name: portainer
@@ -68,20 +68,21 @@ services:
     devices:
       - /dev/snd
 
-  rancher:
-    image: rancher/rancher:v2.4.18
-    privileged: true
-    restart: always
-    ports:
-      - "8888:80"
-      - "8443:443"
-    container_name: rancher
-    volumes:
-      - ./data:/var/lib/rancher
-      - /etc/resolved.conf:/etc/resolved.conf
-    # network_mode: host
-    environment:
-      TZ: Asia/Shanghai
+  # rancher:
+  #   image: rancher/rancher:v2.4.18
+  #   privileged: true
+  #   restart: always
+  #   ports:
+  #     - "8888:80"
+  #     - "8443:443"
+  #   container_name: rancher
+  #   volumes:
+  #     - ./data:/var/lib/rancher
+  #     - /etc/resolved.conf:/etc/resolved.conf
+  #   # network_mode: host
+  #   environment:
+  #     TZ: Asia/Shanghai
+  
   # vm1:
   #   shm_size: "2gb"
   #   container_name: vm1

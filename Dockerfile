@@ -10,11 +10,11 @@ RUN lsb_release -a
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install git curl wget -y
+RUN sudo apt-get update
+RUN sudo apt-get upgrade -y
+RUN sudo apt-get install git curl wget -y
 # RUN apt-get install libasound2 -y
 
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -

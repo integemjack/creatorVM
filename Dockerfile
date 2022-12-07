@@ -110,7 +110,7 @@ RUN mv /home/kasm-user/squashfs-root /home/kasm-user/iCreator
 COPY integem-creator.desktop /home/kasm-user/Desktop/integem-creator.desktop
 RUN chmod +x /home/kasm-user/Desktop/integem-creator.desktop
 
-# RUN echo "alias code='/usr/share/code/code . --no-sandbox --unity-launch'" >> /root/.bashrc
+RUN echo "alias code='/usr/share/code/code . --no-sandbox --unity-launch'" >> /root/.bashrc
 
 RUN rm -rf /home/kasm-user/iCreator-1.3.601.AppImage
 RUN rm -rf /home/kasm-user/Desktop/code*

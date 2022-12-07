@@ -163,7 +163,8 @@ function start_upload (){
 function start_gamepad (){
 	if [[ ${KASM_SVC_GAMEPAD:-1} == 1 ]]; then
 		echo 'Starting gamepad server'
-		$STARTUPDIR/gamepad/kasm_gamepad_server --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
+		$STARTUPDIR/gamepad/kasm_gamepad_server &
+		# $STARTUPDIR/gamepad/kasm_gamepad_server --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
 
 		KASM_PROCS['kasm_gamepad']=$!
 

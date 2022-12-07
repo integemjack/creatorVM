@@ -98,20 +98,20 @@ FROM system
 LABEL maintainer="jack.wang@integem.com"
 
 
-COPY --from=builder /src/build/iCreator*.AppImage /root/iCreator.AppImage
+COPY --from=builder /src/build/iCreator*.AppImage /home/kasm-user/iCreator.AppImage
 
 # COPY iCreator-1.3.601.AppImage /root/
-RUN chmod +x /root/iCreator.AppImage
-RUN cd /root && ./iCreator.AppImage --appimage-extract
+RUN chmod +x /home/kasm-user/iCreator.AppImage
+RUN cd /home/kasm-user && ./iCreator.AppImage --appimage-extract
 # RUN mkdir -p /home/integem/Desktop
-RUN mv /root/squashfs-root /root/iCreator
-COPY integem-creator.desktop /root/Desktop/integem-creator.desktop
+RUN mv /home/kasm-user/squashfs-root /home/kasm-user/iCreator
+COPY integem-creator.desktop /home/kasm-user/Desktop/integem-creator.desktop
 
-RUN echo "alias code='/usr/share/code/code . --no-sandbox --unity-launch'" >> /root/.bashrc
+# RUN echo "alias code='/usr/share/code/code . --no-sandbox --unity-launch'" >> /root/.bashrc
 
-RUN rm -rf /root/iCreator-1.3.601.AppImage
-RUN rm -rf /root/Desktop/code*
-RUN mkdir -p /root/Downloads
+RUN rm -rf /home/kasm-user/iCreator-1.3.601.AppImage
+RUN rm -rf /home/kasm-user/Desktop/code*
+# RUN mkdir -p /home/kasm-user/Downloads
 
 # RUN /root/iCreator/integem-creator --no-sandbox &
 

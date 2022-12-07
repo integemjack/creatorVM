@@ -97,7 +97,7 @@ function start_window_manager (){
 function start_audio_out_websocket (){
 	if [[ ${KASM_SVC_AUDIO:-1} == 1 ]]; then
 		echo 'Starting audio websocket server'
-		$STARTUPDIR/jsmpeg/kasm_audio_out-linux kasmaudio 8081 4901 ${HOME}/.vnc/self.pem ${HOME}/.vnc/self.pem "kasm_user:$VNC_PW"  &
+		$STARTUPDIR/jsmpeg/kasm_audio_out-linux kasmaudio 8081 4901  &
 
 		KASM_PROCS['kasm_audio_out_websocket']=$!
 
@@ -135,7 +135,7 @@ function start_audio_out (){
 function start_audio_in (){
 	if [[ ${KASM_SVC_AUDIO_INPUT:-1} == 1 ]]; then
 		echo 'Starting audio input server'
-		$STARTUPDIR/audio_input/kasm_audio_input_server --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
+		$STARTUPDIR/audio_input/kasm_audio_input_server &
 
 		KASM_PROCS['kasm_audio_in']=$!
 
@@ -227,8 +227,8 @@ if [[ -f $PASSWD_PATH ]]; then
 fi
 VNC_PW_HASH=$(python3 -c "import crypt; print(crypt.crypt('${VNC_PW}', '\$5\$kasm\$'));")
 VNC_VIEW_PW_HASH=$(python3 -c "import crypt; print(crypt.crypt('${VNC_VIEW_ONLY_PW}', '\$5\$kasm\$'));")
-echo "kasm_user:${VNC_PW_HASH}:ow" > $PASSWD_PATH
-echo "kasm_viewer:${VNC_VIEW_PW_HASH}:" >> $PASSWD_PATH
+echo "integem:${VNC_PW_HASH}:ow" > $PASSWD_PATH
+echo "integem_viewer:${VNC_VIEW_PW_HASH}:" >> $PASSWD_PATH
 chmod 600 $PASSWD_PATH
 
 

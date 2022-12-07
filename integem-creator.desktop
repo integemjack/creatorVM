@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=iCreator
-Exec=/root/iCreator/integem-creator --no-sandbox
+Exec=/home/kasm-user/iCreator/integem-creator --no-sandbox
 Terminal=false
 Type=Application
-Icon=/root/iCreator/integem-creator.png
+Icon=/home/kasm-user/iCreator/integem-creator.png
 StartupWMClass=iCreator
 X-AppImage-Version=1.3.601
 Comment=integem creator ui

@@ -43,9 +43,10 @@ services:
     # restart: always
     restart: unless-stopped
     ports:
-      - "6901:6901"
+      - "6080:80"
       - "5901:5901"
     environment:
+      VNC_PORT: 80
       TZ: America/New_York
       VNCUSER: integem
       VNCGROUP: integem

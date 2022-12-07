@@ -52,6 +52,7 @@ services:
       # USER: integem
       # PASSWORD: cc880108
       VNC_PASSWD: cc880108
+      VNC_PW: cc880108
       PASSWORD: cc880108
       PASSWD: cc880108
       VNCPASS: cc880108

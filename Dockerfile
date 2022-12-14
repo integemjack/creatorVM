@@ -121,8 +121,8 @@ RUN chmod +x /dockerstartup/vnc_startup.sh
 
 COPY kasmvnc.yaml /etc/kasmvnc/kasmvnc.yaml
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
-RUN sudo apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+RUN apt-get install -y nodejs
 
 # RUN /root/iCreator/integem-creator --no-sandbox &
 

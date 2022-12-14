@@ -75,7 +75,7 @@ RUN (dpkg -i /home/kasm-user/Desktop/code.deb || apt-get install -fy)
 ################################################################################
 # builder
 ################################################################################
-FROM node:14 as builder
+FROM node:16 as builder
 
 # RUN apt update
 # RUN apt install software-properties-common -y
@@ -120,6 +120,9 @@ COPY vnc_startup.sh /dockerstartup/vnc_startup.sh
 RUN chmod +x /dockerstartup/vnc_startup.sh
 
 COPY kasmvnc.yaml /etc/kasmvnc/kasmvnc.yaml
+
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
+RUN sudo apt-get install -y nodejs
 
 # RUN /root/iCreator/integem-creator --no-sandbox &
 

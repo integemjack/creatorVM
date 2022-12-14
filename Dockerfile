@@ -125,6 +125,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install gcc g++ make -y
 RUN apt-get install -y nodejs
 
+RUN chown -R 1000:0 /dockerstartup/vnc_startup.sh
+RUN chown -R 1000:0 /home/kasm-user/Desktop/integem-creator.desktop
+RUN chown -R 1000:0 /home/kasm-user/iCreator
+
 # RUN /root/iCreator/integem-creator --no-sandbox &
 
 # RUN modprobe snd-aloop index=2

@@ -140,4 +140,4 @@ RUN chown -R 1000:0 /home/kasm-user/iCreator
 # ENTRYPOINT ["/startup.sh"]
 # ENTRYPOINT ["/root/iCreator/integem-creator","--no-sandbox"]
 
-# USER 1000
+USER 1000
